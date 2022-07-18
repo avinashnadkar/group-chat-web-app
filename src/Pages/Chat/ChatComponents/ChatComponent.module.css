@@ -79,3 +79,66 @@
     height: 30px;
     color: #54656f;
 }
+
+.userAccount{
+    background-color: rgb(246, 246, 246);
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgb(203, 203, 203);
+}
+
+.users{
+    width: 30%;
+}
+
+.userSearchBar{
+    /* background-color: #54656f; */
+    display: flex;
+    /* justify-content: center; */
+    padding: 0 10px;
+    align-items: center;
+    height: 7vh;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+.searchBtn{
+    border: 1px solid rgb(234, 234, 234);
+    background-color: rgb(234, 234, 234);
+    padding: 3px 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.inputBox{
+    width: 75%;
+    height: 30px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: rgb(234, 234, 234);
+    padding: 3px;
+}
+
+.userList{
+    overflow-y: scroll;
+    height: 100vh;
+    height: 85vh;
+}
+
+.user{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    width: 100%;
+}
+
+.user .userName p{
+   padding: 0px;
+   margin: 0px 0px 0px 10px;
+}
+
+.user .userName p:nth-child(2){
+    font-size: 14px;
+    color: gray;
+}

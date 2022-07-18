@@ -1,6 +1,7 @@
 import styles from "./ChatComponent.module.css";
 import ReceivedMsg from "./ReceivedMsg";
 import SendMsg from "./SendMsg";
+import {v4 as uuid} from "uuid";
 
 const ChatWindow = (props) => {
 
@@ -69,9 +70,9 @@ const ChatWindow = (props) => {
               {
                 dummyChats.map((chat)=>{
                   if(chat.senderName === 'admin'){
-                    return <SendMsg content={chat.msg}/>
+                    return <SendMsg content={chat.msg} key={uuid()}/>
                   }else{
-                    return <ReceivedMsg content={chat.msg}/>
+                    return <ReceivedMsg content={chat.msg} key={uuid()}/>
                   }
                 })
               }
