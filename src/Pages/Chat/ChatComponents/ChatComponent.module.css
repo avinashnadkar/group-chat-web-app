@@ -1,0 +1,81 @@
+.ChatWindow{
+    height: 100vh;
+    width: 70%;
+    background-image: url('../../../Assets/bg-chat-tile-dark_a4be512e7195b6b733d9110b408f075d.png');
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #eae6df;
+}
+
+.ChatWindow h3{
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    margin-left: 15px;
+}
+
+.ChatWindow .header{
+    background-color: #f0f2f5;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+}
+
+.chatProfilePic{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.chats{
+   height: 82vh;
+   padding: 10px 40px;
+   overflow-y: scroll;
+}
+
+.receivedMessages{
+    background-color: #fff;
+    padding: 5px;
+    width: fit-content;
+    max-width: 50%;
+    margin-top: 15px;
+}
+
+.sendMessages{
+    background-color: #d9fdd3;
+    padding: 5px;
+    max-width: 50%;
+    width: fit-content;
+    margin-left: 50%;
+    margin-top: 15px;
+}
+
+.sendMsg{
+    background-color: #f0f2f5;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputBox{
+   height: 40px;
+   width: 85%;
+   border: none;
+   padding: 0px 10px;
+   outline: none;
+}
+
+.sendMsgBtn{
+    height: 40px;
+    background-color:transparent;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.sendBtnIcon{
+    height: 30px;
+    color: #54656f;
+}
