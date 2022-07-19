@@ -1,9 +1,9 @@
-import Chat from "./Pages/Chat/Chat";
+import Router from "./Router/Router";
 
 function App() {
   return (
     <div className="App">
-       <Chat/>
+      <Router/>
     </div>
   );
 }
