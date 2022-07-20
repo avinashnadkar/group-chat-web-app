@@ -1,8 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import googleIcon from "../../Assets/google.png"
+import { useEffect } from "react";
+import {  useSelector } from "react-redux";
+
 
 const Login = () => {
+
+    //state
+    const userInfo = useSelector((state)=>state.userInfoReducer)
+    const isAuth = userInfo.isUserLoggedIn;
+
+    //Redirect to previous page if user is already logged in
+    let navigate = useNavigate();
+    useEffect(() => {
+        if (isAuth) {
+            navigate(-1);
+        }
+    },[isAuth,navigate])
+
     return(
         <div className={styles.loginPage}>
             <div className={styles.loginForm}>
