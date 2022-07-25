@@ -27,7 +27,7 @@ const CreateAccount = () => {
     let navigate = useNavigate();
     useEffect(() => {
         if (isAuth) {
-            navigate(-1);
+            navigate('/');
         }
     },[isAuth,navigate])
 
