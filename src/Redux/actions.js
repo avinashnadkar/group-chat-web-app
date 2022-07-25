@@ -5,6 +5,11 @@ export const signupInputHandler = (val,name) => {
     return {type:"handleSignupInput", payload : {value:val,name:name}}
 }
 
+//login form input state
+export const loginInputHandler = (val,name)=>{
+    return {type:'handleLoginInput', payload:{value:val,name:name}}
+}
+
 //Is User logged in
 export const isUserLoggedIn = (payload) => {
     return {type : "isUserLoggedIn", payload }
@@ -32,4 +37,23 @@ export function signup(body) {
       });
 
     };
+}
+
+//login user network request
+export function login(body) {
+
+  return (dispatch) => {
+
+    return axios.post('http://localhost:3001/user/login', body)
+    .then(function (response) {
+      dispatch(isUserLoggedIn(true))
+      console.log(response.data.results)
+      let result = JSON.parse(JSON.stringify(response.data.results))
+      dispatch(setUserInfo(result))
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  };
 }
