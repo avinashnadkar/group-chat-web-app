@@ -5,6 +5,7 @@ import Login from "../Pages/Login/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import { useSelector } from "react-redux";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import Groups from "../Pages/Groups/Groups";
 
 const Router = () => {
 
@@ -16,6 +17,7 @@ const Router = () => {
 	        <Route element={<ProtectedRoute auth={auth}/>}>
 	          <Route exact path="/chat" element={<Chat/>} auth={auth} />
 	          <Route exact path="/" element={<Dashboard/>} auth={auth} />
+	          <Route exact path="/groups" element={<Groups/>} auth={auth} />
             </Route>
             <Route  path={'/login'} element={<Login/>}/>
             <Route  path={'/create-account'} element={<CreateAccount/>}/>

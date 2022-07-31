@@ -1,9 +1,16 @@
+import Navbar from "../../Pages/Dashboard/DashboardComponents/Navbar";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
 
-    return(
+    //state
+    const userInfo = useSelector((state)=>state.userInfoReducer)
 
-        <h2>Dashboard</h2>
+    return(
+        <div>
+           <Navbar userEmail={userInfo.email}/>
+           <h2>Dashboard</h2>
+        </div>
     )
 }
 
