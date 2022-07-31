@@ -1,0 +1,74 @@
+main{
+    display: flex;
+}
+
+.groupContainer, .globalChatRooms{
+    padding: 25px;
+    width: 50%;
+}
+
+.createGroup input, .searchGroup input{
+    height: 30px;
+    width: 400px;
+    background-color: rgb(230, 230, 230);
+    border :none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.createGroup button, .searchGroup button{
+    background-color: rgb(40, 147, 151);
+    color: white;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border :none;
+    height: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.yourGroups{
+    margin-top: 30px;
+}
+
+.group{
+    display: flex;
+    margin-top: 20px;
+    width: 550px;
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
+-moz-box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
+box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
+}
+
+.group img{
+    height: 100px;
+}
+
+.groupInformation{
+    margin-left: 10px;
+    color: gray;
+}
+
+.groupInformation p{
+    padding: 0;
+    margin: 5px 0px 0px 0px;
+    font-size: 14px;
+}
+
+.groupInformation p:nth-child(1){
+   font-size: 16px;
+   font-weight:bold;
+   margin-top: 10px;
+}
+
+.groupOptions, .joinGroup{
+    background-color: transparent;
+    padding: 0;
+    height: fit-content;
+    position: absolute;
+    margin-left: 520px;
+    margin-top:10px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+}
