@@ -57,3 +57,32 @@ export function login(body) {
 
   };
 }
+
+///Friends actions
+
+//search friend input handler
+export const handleSearchFriendInput = (val) => {
+  return {type:'handleSearchFriendInput',  payload : {value:val}}
+}
+
+//set friends list 
+export const setFriends = (payload) => {
+  return {type : "setFriends", payload }
+}
+
+//search friends 
+export function searchFriend(body,headers) {
+
+  return (dispatch) => {
+
+    return axios.post('http://localhost:3001/user/search',body,headers)
+    .then(function (response) {
+      let result = JSON.parse(JSON.stringify(response.data.results))
+      dispatch(setFriends(result))
+    })
+    .catch(function (error) {
+      console.log(error.response.data.errorMsg);
+    });
+
+  };
+}
