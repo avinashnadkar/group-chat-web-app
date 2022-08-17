@@ -3,6 +3,7 @@ import signupReducer from './Reducers/signupReducer';
 import thunk from 'redux-thunk';
 import userInfoReducer from './Reducers/userInfoReducer';
 import loginReducer from './Reducers/loginInputHandler';
+import friendsReducer from './Reducers/friendsReducer';
 
 const redux = require('redux');
 
@@ -11,7 +12,8 @@ const combineReducers = redux.combineReducers;
 const rootReducer = combineReducers({
     signupReducer,
     userInfoReducer,
-    loginReducer
+    loginReducer,
+    friendsReducer
 });
 
 let store = createStore(rootReducer, applyMiddleware(thunk));
