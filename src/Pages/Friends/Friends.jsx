@@ -2,9 +2,10 @@ import Navbar from "../Dashboard/DashboardComponents/Navbar";
 import styles from "./Friends.module.css";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import { handleSearchFriendInput, searchFriend } from "../../Redux/actions";
+import { handleSearchFriendInput, searchFriend, getFriends } from "../../Redux/actions";
 import { useDispatch,useSelector } from "react-redux";
 import {v4 as uuid} from 'uuid';
+import { useEffect } from "react";
 
 const Friends = () => {
     //state
@@ -49,6 +50,20 @@ const Friends = () => {
         }))
     }
 
+    //fetch friends
+    useEffect(()=>{
+        dispatch(getFriends({
+            'email' : userInfo.email
+        },{
+            headers: {
+                'X-auth-token' : userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+    },[])
+
+    console.log(friends.myFriends)
+
     return(
         <>
             <Navbar userEmail={userInfo.email}/>
@@ -78,13 +93,13 @@ const Friends = () => {
 
                 <div className={styles.yourFriends}>
                     {
-                        yourDummyFriend.map((group)=>{
+                        friends.myFriends.map((friend)=>{
                             return(
                                 <div className={styles.friend} key={uuid()}>
-                                    <img src={group.groupPicture}/>
+                                    <img src={friend.profilePicture}/>
                                     <div className={styles.friendInformation}>
-                                        <p>{group.name}</p>
-                                        <p>Latest message : {group.lastMsg.msg}</p>
+                                        <p>{friend.email}</p>
+                                        {/* <p>Latest message : {friend.lastMsg.msg}</p> */}
                                     </div>
                                     <button className={styles.friendOptions}><MoreVertIcon/></button>
                                 </div>
