@@ -7,6 +7,13 @@ main{
     width: 50%;
 }
 
+.createGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+}
+
 .createGroup input, .searchGroup input{
     height: 30px;
     width: 400px;
@@ -71,4 +78,19 @@ box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
     cursor: pointer;
     font-size: 18px;
     border: none;
+}
+
+.addMembers{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    border: 1px solid grey;
+    padding:  0px 15px;
+    margin-top: 10px;
+}
+
+.addMembers p{
+    padding:  0;
+    margin:  7px;
 }

@@ -107,3 +107,30 @@ export function getFriends(body,headers) {
 
   };
 }
+
+///Group actions
+export const handleCreateGroupInput = (val) => {
+  return { type : "handleCreateGroupInput", payload: {value:val}}
+}
+
+export const handleAddMember = (val) => {
+  return {type : 'addMembers', payload:val}
+}
+
+//create group
+export function createGroup(body,headers) {
+
+  return (dispatch) => {
+
+    return axios.post('http://localhost:3001/group/create',body,headers)
+    .then(function (response) {
+      // let result = JSON.parse(JSON.stringify(response.data.results))
+      // dispatch(setMyFriends(result))
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error.response.data.errorMsg);
+    });
+
+  };
+}

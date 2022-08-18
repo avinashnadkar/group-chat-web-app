@@ -17,27 +17,6 @@ const Friends = () => {
     //dispatcher to dispatch action to reducers
     const dispatch = useDispatch()
 
-    let yourDummyFriend = [{
-        name : 'User@gmail.com',
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone online for chat ?'},
-        groupPicture : 'https://via.placeholder.com/150'
-    },{
-        name : 'UserTwo@gmail.com',
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone ?'},
-        groupPicture : 'https://via.placeholder.com/150'
-    },
-    {
-        name : 'UserThree@hotmail.com',
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone online for chat ?'},
-        groupPicture : 'https://via.placeholder.com/150'
-    },
-    {
-        name : 'UserFour@yahoo.com',
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone online for chat ?'},
-        groupPicture : 'https://via.placeholder.com/150'
-    }
-    ]
-
     //search friend
     const handleSearch = () => {
         dispatch(searchFriend({
