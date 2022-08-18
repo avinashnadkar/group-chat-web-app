@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import userInfoReducer from './Reducers/userInfoReducer';
 import loginReducer from './Reducers/loginInputHandler';
 import friendsReducer from './Reducers/friendsReducer';
+import groupReducer from './Reducers/groupReducer';
 
 const redux = require('redux');
 
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     signupReducer,
     userInfoReducer,
     loginReducer,
-    friendsReducer
+    friendsReducer,
+    groupReducer 
 });
 
 let store = createStore(rootReducer, applyMiddleware(thunk));
