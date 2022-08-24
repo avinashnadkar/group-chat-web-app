@@ -23,6 +23,12 @@ const groupReducer = (state = initState,action) => {
         }
     }
 
+    if(action.type === "setMyGroups"){
+        return{
+            ...state,
+            myGroups : [...action.payload]
+        }
+    }
 
     return state
 }

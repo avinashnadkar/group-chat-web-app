@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import styles from "./Groups.module.css";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import { handleCreateGroupInput } from "../../Redux/actions";
+import { fetchMyGroups, handleCreateGroupInput } from "../../Redux/actions";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { getFriends, handleAddMember,createGroup } from "../../Redux/actions";
+import {v4 as uuid} from 'uuid'
 
 const style = {
   position: 'absolute',
@@ -37,39 +38,6 @@ const Groups = () => {
     //dispatcher to dispatch actions to reducers
     const dispatch = useDispatch()
 
-    let yourDummyGroups = [{
-        name : 'chai tapri',
-        createdOn : '2 Dec 2021',
-        newMsgCount : 4,
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone online for chat ?'},
-        memberCount : 3,
-        groupPicture : 'https://via.placeholder.com/150'
-    },{
-        name : 'chai tapri',
-        createdOn : '2 Dec 2021',
-        newMsgCount : 4,
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone ?'},
-        memberCount : 3,
-        groupPicture : 'https://via.placeholder.com/150'
-    },
-    {
-        name : 'chai tapri',
-        createdOn : '2 Dec 2021',
-        newMsgCount : 4,
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone online for chat ?'},
-        memberCount : 3,
-        groupPicture : 'https://via.placeholder.com/150'
-    },
-    {
-        name : 'chai tapri',
-        createdOn : '2 Dec 2021',
-        newMsgCount : 4,
-        lastMsg : {usename:'devil',msg: 'Hi, is anyone online for chat ?'},
-        memberCount : 3,
-        groupPicture : 'https://via.placeholder.com/150'
-    }
-    ]
-
     //fetch friends
     useEffect(()=>{
         dispatch(getFriends({
@@ -80,6 +48,15 @@ const Groups = () => {
                 'Content-Type': 'application/json'
             }
         }))
+
+        //fetch groups
+        dispatch(fetchMyGroups(userInfo.email,{
+            headers: {
+                'X-auth-token' : userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+
     },[])
 
     //handle create group
@@ -97,7 +74,6 @@ const Groups = () => {
         }))
     }
 
-    // console.log(groupsInfo.createGroupInput.groupName,userInfo )
 
     return(
         <div>
@@ -122,7 +98,7 @@ const Groups = () => {
                                     {
                                        friendsInfo.myFriends.map((el)=>{
                                            return (
-                                            <div className={styles.addMembers}>
+                                            <div className={styles.addMembers} key={uuid()}>
                                                 <p>{el.email}</p>
                                                 <button onClick={()=>dispatch(handleAddMember(el))}>+</button>
                                             </div>
@@ -136,14 +112,14 @@ const Groups = () => {
 
                     <div className={styles.yourGroups}>
                         {
-                            yourDummyGroups.map((group)=>{
+                            groupsInfo.myGroups.map((group)=>{
                                 return(
-                                    <div className={styles.group}>
-                                        <img src={group.groupPicture}/>
+                                    <div className={styles.group} key={uuid()}>
+                                        {/* <img src={group.groupPicture}/> */}
                                         <div className={styles.groupInformation}>
                                            <p>{group.name}</p>
-                                           <p>Total members : {group.memberCount}</p>
-                                           <p>Latest message : {group.lastMsg.msg}</p>
+                                           <p>Total members : {groupsInfo.myGroups.length}</p>
+                                           {/* <p>Latest message : {group.lastMsg.msg}</p> */}
                                         </div>
                                         <button className={styles.groupOptions}><MoreVertIcon/></button>
                                     </div>

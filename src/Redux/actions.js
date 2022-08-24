@@ -134,3 +134,24 @@ export function createGroup(body,headers) {
 
   };
 }
+
+//set my group list 
+export const setMyGroups = (payload) => {
+  return {type : "setMyGroups", payload }
+}
+
+//fetch my group
+export function fetchMyGroups(email,headers){
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/group/?email=${email}`,headers)
+    .then(function (response) {
+      let result = JSON.parse(JSON.stringify(response.data.result))
+      dispatch(setMyGroups(result.groups))
+      // console.log(response.data.result.groups)
+    })
+    .catch(function (error) {
+      console.log(error.response.data.errorMsg);
+    });
+
+  };
+}
