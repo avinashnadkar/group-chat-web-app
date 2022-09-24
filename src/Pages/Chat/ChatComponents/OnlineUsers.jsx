@@ -3,71 +3,6 @@ import {v4 as uuid} from 'uuid';
 
 const OnlineUsers = (props) => {
 
-    let dummyUsers = [
-        {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        },
-        {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        },  {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        },  {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        },  {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        },  {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }, {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }, {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }, {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }, {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }, {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }, {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }
-    ]
-
     return(
         <div className={styles.users}>
             <div className={styles.userAccount}>
@@ -83,12 +18,12 @@ const OnlineUsers = (props) => {
 
             <div className={styles.userList}>
             {
-                dummyUsers.map((el)=>{
+                props.chatGroup.map((el)=>{
                     return(
                         <div className={styles.user} key={uuid()}>
                             <img src={"https://via.placeholder.com/300"} alt="" className={styles.chatProfilePic}/>
                             <div className={styles.userName}>
-                                <p>{el.name}</p>
+                                <p>{el.email}</p>
                                 <p>{el.lastMessage}</p>
                             </div>
                             <div className={styles.msgCount}>

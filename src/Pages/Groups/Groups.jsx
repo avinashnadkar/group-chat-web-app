@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { getFriends, handleAddMember,createGroup } from "../../Redux/actions";
 import {v4 as uuid} from 'uuid'
+import { Link } from "react-router-dom";
 
 const style = {
   position: 'absolute',
@@ -114,15 +115,17 @@ const Groups = () => {
                         {
                             groupsInfo.myGroups.map((group)=>{
                                 return(
-                                    <div className={styles.group} key={uuid()}>
-                                        {/* <img src={group.groupPicture}/> */}
-                                        <div className={styles.groupInformation}>
-                                           <p>{group.name}</p>
-                                           <p>Total members : {groupsInfo.myGroups.length}</p>
-                                           {/* <p>Latest message : {group.lastMsg.msg}</p> */}
+                                    <Link to={`/chat/${group._id}`} key={uuid()}>
+                                        <div className={styles.group}>
+                                            {/* <img src={group.groupPicture}/> */}
+                                            <div className={styles.groupInformation}>
+                                                <p>{group.name}</p>
+                                                <p>Total members : {group.members.length}</p>
+                                                {/* <p>Latest message : {group.lastMsg.msg}</p> */}
+                                            </div>
+                                            <button className={styles.groupOptions}><MoreVertIcon/></button>
                                         </div>
-                                        <button className={styles.groupOptions}><MoreVertIcon/></button>
-                                    </div>
+                                    </Link>
                                 )
                             })
                         }
