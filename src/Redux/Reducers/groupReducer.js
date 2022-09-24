@@ -1,7 +1,8 @@
 const initState = {
     createGroupInput : {groupName:'',members:[]},
     myGroups : [],
-    findGroups : []
+    findGroups : [],
+    chatGroup : {name:'', members:[]}
 }
 
 const groupReducer = (state = initState,action) => {
@@ -27,6 +28,13 @@ const groupReducer = (state = initState,action) => {
         return{
             ...state,
             myGroups : [...action.payload]
+        }
+    }
+
+    if(action.type === "setChatGroup"){
+        return{
+            ...state,
+            chatGroup : {...action.payload}
         }
     }
 

@@ -16,7 +16,7 @@ const Router = () => {
     return(
         <Routes>
 	        <Route element={<ProtectedRoute auth={auth}/>}>
-	          <Route exact path="/chat" element={<Chat/>} auth={auth} />
+	          <Route exact path="/chat/:groupId" element={<Chat/>} auth={auth} />
 	          <Route exact path="/" element={<Dashboard/>} auth={auth} />
 	          <Route exact path="/groups" element={<Groups/>} auth={auth} />
 	          <Route exact path="/friends" element={<Friends/>} auth={auth} />

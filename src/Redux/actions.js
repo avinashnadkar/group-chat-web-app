@@ -155,3 +155,25 @@ export function fetchMyGroups(email,headers){
 
   };
 }
+
+
+// set chatGroup action
+export const setChatGroup = (payload) => {
+  return {type : "setChatGroup", payload }
+}
+
+//fetch group by id
+export function fetchGroupById(id,headers){
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/group/${id}`,headers)
+    .then(function (response) {
+      let result = JSON.parse(JSON.stringify(response.data.result))
+      dispatch(setChatGroup(result.group))
+      // console.log(response.data.result.groups)
+    })
+    .catch(function (error) {
+      console.log(error.response.data.errorMsg);
+    });
+
+  };
+}
