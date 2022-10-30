@@ -9,7 +9,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { getFriends, handleAddMember,createGroup } from "../../Redux/actions";
 import {v4 as uuid} from 'uuid'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import io from 'socket.io-client';
+const socket = io('http://localhost:3001');
 
 const style = {
   position: 'absolute',
@@ -30,6 +32,10 @@ const Groups = () => {
     const userInfo = useSelector((state)=>state.userInfoReducer)
     const groupsInfo  = useSelector((state)=>state.groupReducer)
     const friendsInfo = useSelector((state)=>state.friendsReducer)
+
+    //location
+    const location = useLocation()
+    console.log(location)
 
     //state for toggling modal
     const [open, setOpen] = useState(false);
@@ -57,6 +63,8 @@ const Groups = () => {
                 'Content-Type': 'application/json'
             }
         }))
+
+        socket.disconnect()
 
     },[])
 
