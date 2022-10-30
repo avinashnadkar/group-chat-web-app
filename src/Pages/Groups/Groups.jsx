@@ -9,7 +9,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { getFriends, handleAddMember,createGroup } from "../../Redux/actions";
 import {v4 as uuid} from 'uuid'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import io from 'socket.io-client';
+const socket = io('http://localhost:3001');
 
 const style = {
   position: 'absolute',
@@ -30,6 +32,10 @@ const Groups = () => {
     const userInfo = useSelector((state)=>state.userInfoReducer)
     const groupsInfo  = useSelector((state)=>state.groupReducer)
     const friendsInfo = useSelector((state)=>state.friendsReducer)
+
+    //location
+    const location = useLocation()
+    console.log(location)
 
     //state for toggling modal
     const [open, setOpen] = useState(false);
@@ -58,6 +64,8 @@ const Groups = () => {
             }
         }))
 
+        socket.disconnect()
+
     },[])
 
     //handle create group
@@ -77,88 +85,94 @@ const Groups = () => {
 
 
     return(
-        <div>
-            <Navbar userEmail={userInfo.email}/>
-            <main>
-                <div className={styles.groupContainer}>
-                    <div className={styles.createGroup}>
-                        <h3>Your groups</h3>
-                        <button onClick={handleOpen}>Add group</button>
-                        <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style}>
-                                <h2> Create group </h2>
-                                <div>
-                                    <input type="text" name='name' value={groupsInfo.createGroupInput.groupName} placeholder="Enter name.." onChange={(e)=>dispatch(handleCreateGroupInput(e.target.value))}/>
-                                    <button onClick={handleCreateGroup}>Create group</button>
-                                    <h4> Add members </h4>
-                                    {
-                                       friendsInfo.myFriends.map((el)=>{
-                                           return (
-                                            <div className={styles.addMembers} key={uuid()}>
-                                                <p>{el.email}</p>
-                                                <button onClick={()=>dispatch(handleAddMember(el))}>+</button>
-                                            </div>
-                                           )
-                                       })
-                                    }
-                                </div>
-                                </Box>
-                        </Modal>
-                    </div>
-
-                    <div className={styles.yourGroups}>
-                        {
-                            groupsInfo.myGroups.map((group)=>{
-                                return(
-                                    <Link to={`/chat/${group._id}`} key={uuid()}>
-                                        <div className={styles.group}>
-                                            {/* <img src={group.groupPicture}/> */}
-                                            <div className={styles.groupInformation}>
-                                                <p>{group.name}</p>
-                                                <p>Total members : {group.members.length}</p>
-                                                {/* <p>Latest message : {group.lastMsg.msg}</p> */}
-                                            </div>
-                                            <button className={styles.groupOptions}><MoreVertIcon/></button>
-                                        </div>
-                                    </Link>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-
-                <div className={styles.globalChatRooms}>
-                    {/* <div className={styles.searchGroup}>
-                        <input type="text" name='name' placeholder="Search global chat room.."/>
-                        <button>Search group</button>
-                    </div>
-
-                    <div className={styles.yourGroups}>
-                        {
-                            yourDummyGroups.map((group)=>{
-                                return(
-                                    <div className={styles.group}>
-                                        <img src={group.groupPicture}/>
-                                        <div className={styles.groupInformation}>
-                                           <p>{group.name}</p>
-                                           <p>Total members : {group.memberCount}</p>
-                                           <p>Latest message : {group.lastMsg.msg}</p>
-                                        </div>
-                                        <button className={styles.joinGroup}> <GroupAddIcon/></button>
+            <div>
+                <Navbar userEmail={userInfo.email}/>
+                <main>
+            
+                    <div className={styles.groupContainer}>
+                        <div className={styles.groupCard}>
+                            <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <h2> Create group </h2>
+                                    <div>
+                                        <input type="text" name='name' value={groupsInfo.createGroupInput.groupName} placeholder="Enter name.." onChange={(e)=>dispatch(handleCreateGroupInput(e.target.value))}/>
+                                        <button onClick={handleCreateGroup}>Create group</button>
+                                        <h4> Add members </h4>
+                                        {
+                                        friendsInfo.myFriends.map((el)=>{
+                                            return (
+                                                <div className={styles.addMembers} key={uuid()}>
+                                                    <p>{el.email}</p>
+                                                    <button onClick={()=>dispatch(handleAddMember(el))}>+</button>
+                                                </div>
+                                            )
+                                        })
+                                        }
                                     </div>
-                                )
-                            })
-                        }
-                    </div> */}
-                </div>
-                
-            </main>
-        </div>
+                                    </Box>
+                            </Modal>
+            
+                            <div className={styles.groupCardTitle}>
+                                <h3>Your groups</h3>
+                                <button onClick={handleOpen}>Add group</button>
+                            </div>
+                            
+                            <div className={styles.groups}>
+
+                                {
+                                    groupsInfo.myGroups.map((group)=>{
+                                        return(
+                                            <div className={styles.group}>
+                                                <Link to={`/chat/${group._id}`} key={uuid()}>
+                                                    {/* <img src={group.groupPicture}/> */}
+                                                    <div className={styles.groupInformation}>
+                                                        <p>{group.name}</p>
+                                                        <p>Total members : {group.members.length}</p>
+                                                        {/* <p>Latest message : {group.lastMsg.msg}</p> */}
+                                                    </div>
+                                                </Link>
+                                                <button className={styles.groupOptions}><MoreVertIcon/></button>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className={styles.globalChatRooms}>
+                        {/* <div className={styles.searchGroup}>
+                            <input type="text" name='name' placeholder="Search global chat room.."/>
+                            <button>Search group</button>
+                        </div>
+
+                        <div className={styles.groups}>
+                            {
+                                yourDummyGroups.map((group)=>{
+                                    return(
+                                        <div className={styles.group}>
+                                            <img src={group.groupPicture}/>
+                                            <div className={styles.groupInformation}>
+                                            <p>{group.name}</p>
+                                            <p>Total members : {group.memberCount}</p>
+                                            <p>Latest message : {group.lastMsg.msg}</p>
+                                            </div>
+                                            <button className={styles.joinGroup}> <GroupAddIcon/></button>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div> */}
+                    </div>
+            
+                </main>
+            </div>
     )
 }
 

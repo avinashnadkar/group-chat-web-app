@@ -3,18 +3,34 @@ main{
 }
 
 .groupContainer, .globalChatRooms{
-    padding: 25px;
     width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
-.createGroup {
+.groupCard{
+    width: 90%;
+    margin-top: 50px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
+-moz-box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
+box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
+}
+
+.groupCardTitle {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
+    border-bottom:  1px solid rgb(213, 213, 213);
+    padding: 15px 0px;
 }
 
-.createGroup input, .searchGroup input{
+.groupCardTitle h3{
+    margin-left: 30px;
+}
+
+.searchGroup input{
     height: 30px;
     width: 400px;
     background-color: rgb(230, 230, 230);
@@ -23,19 +39,20 @@ main{
     border-radius: 5px;
 }
 
-.createGroup button, .searchGroup button{
+.groupCardTitle button, .searchGroup button{
     background-color: rgb(40, 147, 151);
     color: white;
     padding: 7px 10px;
     border-radius: 5px;
     border :none;
     height: 30px;
-    margin-left: 10px;
     cursor: pointer;
+    margin-right: 30px;
 }
 
-.yourGroups{
+.groups{
     margin-top: 30px;
+    padding: 0px 30px 30px 30px;
 }
 
 .group{
@@ -44,9 +61,14 @@ main{
     margin-top: 30px;
     width: 550px;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
--moz-box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
-box-shadow: 0px 1px 3px 0px rgba(102,102,102,1);
+    border: 1px solid rgb(213, 213, 213);
+    /* -webkit-box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
+    box-shadow: 0px 0px 6px 0px rgba(194,194,194,1); */
+}
+
+a{
+    text-decoration: none;
 }
 
 .group img{
