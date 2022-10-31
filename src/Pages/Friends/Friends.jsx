@@ -47,46 +47,50 @@ const Friends = () => {
         <>
             <Navbar userEmail={userInfo.email}/>
             <main>
-            <div className={styles.friendContainer}>
+                <div className={styles.friendContainer}>
+                    <div className={styles.searchFriendContainer}>
+                        <div className={styles.searchFriends}>
+                            <input type="text" name='name' placeholder="Enter email.." value={friends.email} onChange={(e)=>dispatch(handleSearchFriendInput(e.target.value))}/>
+                            <button onClick={handleSearch}>Search friends</button>
+                        </div>
 
-                <div className={styles.searchFriends}>
-                    <input type="text" name='name' placeholder="Enter email.." value={friends.email} onChange={(e)=>dispatch(handleSearchFriendInput(e.target.value))}/>
-                    <button onClick={handleSearch}>Search friends</button>
-                </div>
-
-                {
-                    friends.friends.map((el)=>{
-                        return (
-                            <div className={styles.searchedFriend} key={uuid()}>
-                                <img src={el.profilePicture}/>
-                                <div className={styles.friendInformation}>
-                                    <p>{el.email}</p>
-                                </div>
-                                <button className={styles.friendOptions}><GroupAddIcon/></button>
-                            </div>
-                        )
-                    })
-                }
-
-                <h2>Your Friends {friends.myFriends.length}</h2>
-
-                <div className={styles.yourFriends}>
-                    {
-                        friends.myFriends.map((friend)=>{
-                            return(
-                                <div className={styles.friend} key={uuid()}>
-                                    <img src={friend.profilePicture}/>
-                                    <div className={styles.friendInformation}>
-                                        <p>{friend.email}</p>
-                                        {/* <p>Latest message : {friend.lastMsg.msg}</p> */}
+                        {
+                            friends.friends.map((el)=>{
+                                return (
+                                    <div className={styles.friend} key={uuid()}>
+                                        {/* <img src={el.profilePicture}/> */}
+                                        <div className={styles.friendInformation}>
+                                            <p>{el.email}</p>
+                                        </div>
+                                        <button className={styles.friendOptions}><GroupAddIcon/></button>
                                     </div>
-                                    <button className={styles.friendOptions}><MoreVertIcon/></button>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+                    </div>
+
+                    <div className={styles.friendCard}>
+                        <div className={styles.cardTitle}>
+                            <h2>Total friends {friends.myFriends.length}</h2>
+                        </div>
+                        <div className={styles.friends}>
+                            {
+                                friends.myFriends.map((friend)=>{
+                                    return(
+                                        <div className={styles.friend} key={uuid()}>
+                                            {/* <img src={friend.profilePicture}/> */}
+                                            <div className={styles.friendInformation}>
+                                                <p>{friend.email}</p>
+                                                {/* <p>Latest message : {friend.lastMsg.msg}</p> */}
+                                            </div>
+                                            <button className={styles.friendOptions}><MoreVertIcon/></button>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
             </main>
         </>
     )
