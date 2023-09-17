@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+/*info : 
+  followng url comes from .env file create one 
+  and add REACT_APP_API_URL = <http://your-url> 
+*/
+const apiUrl = process.env.REACT_APP_API_URL;  
+
+
 //change input state
 export const signupInputHandler = (val,name) => {
     return {type:"handleSignupInput", payload : {value:val,name:name}}
@@ -25,7 +32,7 @@ export function signup(body) {
     console.log('running')
     return (dispatch) => {
 
-      return axios.post('http://localhost:3001/user/signup', body)
+      return axios.post(`${apiUrl}/user/signup`, body)
       .then(function (response) {
         dispatch(isUserLoggedIn(true))
         console.log(response.data.results)
@@ -44,7 +51,7 @@ export function login(body) {
 
   return (dispatch) => {
 
-    return axios.post('http://localhost:3001/user/login', body)
+    return axios.post(`${apiUrl}/user/login`, body)
     .then(function (response) {
       dispatch(isUserLoggedIn(true))
       console.log(response.data.results)
@@ -79,7 +86,7 @@ export function searchFriend(body,headers) {
 
   return (dispatch) => {
 
-    return axios.post('http://localhost:3001/user/search',body,headers)
+    return axios.post(`${apiUrl}/user/search`,body,headers)
     .then(function (response) {
       let result = JSON.parse(JSON.stringify(response.data.results))
       dispatch(setFriends(result))
@@ -96,7 +103,7 @@ export function getFriends(body,headers) {
 
   return (dispatch) => {
 
-    return axios.post('http://localhost:3001/user/friends',body,headers)
+    return axios.post(`${apiUrl}/user/friends`,body,headers)
     .then(function (response) {
       let result = JSON.parse(JSON.stringify(response.data.results.friends))
       dispatch(setMyFriends(result))
@@ -122,7 +129,7 @@ export function createGroup(body,headers) {
 
   return (dispatch) => {
 
-    return axios.post('http://localhost:3001/group/create',body,headers)
+    return axios.post(`${apiUrl}/group/create`,body,headers)
     .then(function (response) {
       // let result = JSON.parse(JSON.stringify(response.data.results))
       // dispatch(setMyFriends(result))
@@ -143,7 +150,7 @@ export const setMyGroups = (payload) => {
 //fetch my group
 export function fetchMyGroups(email,headers){
   return (dispatch) => {
-    return axios.get(`http://localhost:3001/group/?email=${email}`,headers)
+    return axios.get(`${apiUrl}/group/?email=${email}`,headers)
     .then(function (response) {
       let result = JSON.parse(JSON.stringify(response.data.result))
       dispatch(setMyGroups(result.groups))
@@ -165,7 +172,7 @@ export const setChatGroup = (payload) => {
 //fetch group by id
 export function fetchGroupById(id,headers){
   return (dispatch) => {
-    return axios.get(`http://localhost:3001/group/${id}`,headers)
+    return axios.get(`${apiUrl}/group/${id}`,headers)
     .then(function (response) {
       let result = JSON.parse(JSON.stringify(response.data.result))
       dispatch(setChatGroup(result.group))
