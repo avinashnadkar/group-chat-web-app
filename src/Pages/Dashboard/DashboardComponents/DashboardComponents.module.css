@@ -81,3 +81,7 @@ nav{
 .dropdown a {
     text-decoration: none;
 }
+
+.logoutOption{
+    cursor: pointer;
+}
