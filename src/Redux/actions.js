@@ -6,12 +6,6 @@ import axios from 'axios';
 */
 const apiUrl = process.env.REACT_APP_API_URL;
 
-
-//change input state
-export const signupInputHandler = (val, name) => {
-  return { type: "handleSignupInput", payload: { value: val, name: name } }
-}
-
 //login form input state
 export const loginInputHandler = (val, name) => {
   return { type: 'handleLoginInput', payload: { value: val, name: name } }
