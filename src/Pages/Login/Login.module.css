@@ -38,6 +38,13 @@
     border-radius: 5px;
 }
 
+.errorMessage{
+    padding: 0px;
+    margin: 0px;
+    color: red;
+    font-size: 12px;
+}
+
 .submitBtn{
     margin-top: 15px;
     background-color: #00a884;

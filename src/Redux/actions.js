@@ -6,10 +6,6 @@ import axios from 'axios';
 */
 const apiUrl = process.env.REACT_APP_API_URL;
 
-//login form input state
-export const loginInputHandler = (val, name) => {
-  return { type: 'handleLoginInput', payload: { value: val, name: name } }
-}
 
 //Is User logged in
 export const isUserLoggedIn = (payload) => {
@@ -23,7 +19,7 @@ export function setUserInfo(payload) {
 
 //signup user network request
 export function signup(body) {
-  console.log('running')
+
   return (dispatch) => {
 
     return axios.post(`${apiUrl}/user/signup`, body)
