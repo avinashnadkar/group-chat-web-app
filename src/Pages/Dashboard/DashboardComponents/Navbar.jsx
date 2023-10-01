@@ -1,5 +1,5 @@
 import styles from './DashboardComponents.module.css';
-import {  useDispatch, useSelector } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { logoutUser} from "../../../Redux/actions";
 import { Link } from "react-router-dom";
 import { useState } from "react";

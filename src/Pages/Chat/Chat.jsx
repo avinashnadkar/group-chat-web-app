@@ -5,19 +5,18 @@ import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
 import { fetchGroupById } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import io from 'socket.io-client';
-const socket = io('http://localhost:3001');
+
 
 const Chat = () => {
 
-    let dummyUsers = [
-        {
-            name : 'kakashi',
-            isOnline : 'false',
-            lastMessage: 'Last Message',
-            newMsgCount : 2
-        }
-    ]
+    // let dummyUsers = [
+    //     {
+    //         name : 'kakashi',
+    //         isOnline : 'false',
+    //         lastMessage: 'Last Message',
+    //         newMsgCount : 2
+    //     }
+    // ]
 
     // dispatcher to despatch actions to reducers
     const dispatch = useDispatch();
@@ -30,12 +29,9 @@ const Chat = () => {
     const groupInfo  = useSelector((state)=>state.groupReducer)
     const [message,setMessage] = useState('')
 
-    //submit message
+    // //submit message
     const sendMessage = () => {
-        socket.emit('send message',{id:groupId, message:message},(response) => {
-            console.log(response.status); // ok
-            io.to(groupId).emit(message);
-        })
+
     }
 
     useEffect(()=>{
@@ -47,35 +43,6 @@ const Chat = () => {
                 }
             })
         )
-
-        socket.on('connect', () => {
-            console.log(true)
-        });
-
-        //open group , join room
-        socket.emit(`open-group`,{groupId :groupId, userInfo : userInfo},(response)=>{
-            console.log(response)
-        })
-
-        //on join group
-        socket.on('connectToRoom',function(data){
-            console.log(data)
-         });
-
-        //get messages
-        socket.on('broadcast',function(data){
-            console.log(data)
-        });
-
-        socket.on('disconnect', () => {
-            console.log(false)
-        });
-
-    
-        return () => {
-            socket.off('connect');
-            socket.off('disconnect');
-        };
 
     },[userInfo,groupId,dispatch])
 

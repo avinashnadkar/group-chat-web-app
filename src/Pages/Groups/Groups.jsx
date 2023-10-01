@@ -3,15 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import styles from "./Groups.module.css";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+// import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { fetchMyGroups, handleCreateGroupInput } from "../../Redux/actions";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { getFriends, handleAddMember,createGroup } from "../../Redux/actions";
 import {v4 as uuid} from 'uuid'
 import { Link, useLocation } from "react-router-dom";
-import io from 'socket.io-client';
-const socket = io('http://localhost:3001');
+
 
 const style = {
   position: 'absolute',
@@ -64,9 +63,8 @@ const Groups = () => {
             }
         }))
 
-        socket.disconnect()
 
-    },[])
+    },[userInfo,dispatch])
 
     //handle create group
     const handleCreateGroup = () => {

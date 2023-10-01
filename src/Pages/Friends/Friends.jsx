@@ -39,9 +39,7 @@ const Friends = () => {
                 'Content-Type': 'application/json'
             }
         }))
-    },[])
-
-    console.log(friends.myFriends)
+    },[userInfo,dispatch])
 
     return(
         <>
