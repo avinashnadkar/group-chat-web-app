@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { getFriends, handleAddMember,createGroup } from "../../Redux/actions";
 import {v4 as uuid} from 'uuid'
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const style = {
@@ -32,9 +32,6 @@ const Groups = () => {
     const groupsInfo  = useSelector((state)=>state.groupReducer)
     const friendsInfo = useSelector((state)=>state.friendsReducer)
 
-    //location
-    const location = useLocation()
-    console.log(location)
 
     //state for toggling modal
     const [open, setOpen] = useState(false);
@@ -125,8 +122,8 @@ const Groups = () => {
                                 {
                                     groupsInfo.myGroups.map((group)=>{
                                         return(
-                                            <div className={styles.group}>
-                                                <Link to={`/chat/${group._id}`} key={uuid()}>
+                                            <div className={styles.group} key={uuid()}>
+                                                <Link to={`/chat/${group._id}`}>
                                                     {/* <img src={group.groupPicture}/> */}
                                                     <div className={styles.groupInformation}>
                                                         <p>{group.name}</p>
