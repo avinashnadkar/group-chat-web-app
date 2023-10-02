@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 /*info : 
-  followng url comes from .env file create one 
-  and add REACT_APP_API_URL = <http://your-url> 
+  followng urls value saved in .env file.
+  Add REACT_APP_API_URL = <http://your-url> 
 */
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -80,22 +80,6 @@ export const setMyFriends = (payload) => {
   return { type: 'setMyFriends', payload }
 }
 
-//search friends 
-export function searchFriend(body, headers) {
-
-  return (dispatch) => {
-
-    return axios.post(`${apiUrl}/user/search`, body, headers)
-      .then(function (response) {
-        let result = JSON.parse(JSON.stringify(response.data.results))
-        dispatch(setFriends(result))
-      })
-      .catch(function (error) {
-        console.log(error.response.data.errorMsg);
-      });
-
-  };
-}
 
 //fetch friends
 export function getFriends(body, headers) {
