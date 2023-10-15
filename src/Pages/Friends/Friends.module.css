@@ -1,13 +1,19 @@
 
 .friendContainer{
-    width: 50%;
+    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
+.friendCardContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
 .friendCard{
-    width: 90%;
+    width: 50%;
     margin-top: 40px;
     border-radius: 5px;
     -webkit-box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
@@ -97,6 +103,26 @@
     cursor: pointer;
     font-size: 18px;
     border: none;
+}
+
+.acceptButton{
+    background-color: teal;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 7px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.rejectButton{
+    background-color: rgb(213, 66, 8);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 7px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .onlineSignal{

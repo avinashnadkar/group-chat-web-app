@@ -80,16 +80,97 @@ export const setMyFriends = (payload) => {
   return { type: 'setMyFriends', payload }
 }
 
+export const setFriendRequests = (payload) => {
+  return { type: 'setFriendRequests', payload }
+}
+
+export const setFriendRequestsSent = (payload) => {
+  return { type: 'setFriendRequestsSent', payload }
+}
 
 //fetch friends
 export function getFriends(body, headers) {
 
   return (dispatch) => {
 
-    return axios.post(`${apiUrl}/user/friends`, body, headers)
+    return axios.get(`${apiUrl}/friends`, headers)
       .then(function (response) {
-        let result = JSON.parse(JSON.stringify(response.data.results.friends))
-        dispatch(setMyFriends(result))
+        console.log(response)
+        let result = JSON.parse(JSON.stringify(response.data.results))
+        dispatch(setMyFriends(result.friends))
+        dispatch(setFriendRequests(result.friendRequests))
+        dispatch(setFriendRequestsSent(result.friendRequestsSent))
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errorMsg);
+      });
+
+  };
+}
+
+//send friend requests
+export function sendFriendRequest(body, headers) {
+
+  return (dispatch) => {
+
+    return axios.post(`${apiUrl}/friends/add-friend`, body, headers)
+      .then(function (response) {
+        // Dispatch getFriends to fetch the updated friend list
+        dispatch(getFriends(body, headers));
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errorMsg);
+      });
+
+  };
+}
+
+//cancel friend requests
+export function cancelFriendRequest(body, headers) {
+
+  return (dispatch) => {
+
+    return axios.post(`${apiUrl}/friends/cancel-friend-request`, body, headers)
+      .then(function (response) {
+        // Dispatch getFriends to fetch the updated friend list
+        dispatch(getFriends(body, headers));
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errorMsg);
+      });
+
+  };
+}
+
+//accept friend requests
+export function acceptFriendRequest(body, headers) {
+
+  return (dispatch) => {
+
+    return axios.post(`${apiUrl}/friends/accept-friend-request`, body, headers)
+      .then(function (response) {
+        if (response.data.status == "success") {
+          // Dispatch getFriends to fetch the updated friend list
+          dispatch(getFriends(body, headers));
+        }
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errorMsg);
+      });
+
+  };
+}
+
+//reject friend request
+export function rejectFriendRequest(body, headers){
+  return (dispatch) => {
+
+    return axios.post(`${apiUrl}/friends/reject-friend-request`, body, headers)
+      .then(function (response) {
+        if (response.data.status == "success") {
+          // Dispatch getFriends to fetch the updated friend list
+          dispatch(getFriends(body, headers));
+        }
       })
       .catch(function (error) {
         console.log(error.response.data.errorMsg);
