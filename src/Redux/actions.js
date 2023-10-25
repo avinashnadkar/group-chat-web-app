@@ -43,10 +43,13 @@ export function login(body) {
 
     return axios.post(`${apiUrl}/user/login`, body)
       .then(function (response) {
-        dispatch(isUserLoggedIn(true))
-        console.log(response.data.results)
-        let result = JSON.parse(JSON.stringify(response.data.results))
-        dispatch(setUserInfo(result))
+        if (response.data.status == "success") {
+          dispatch(isUserLoggedIn(true))
+          let result = JSON.parse(JSON.stringify(response.data.results))
+          dispatch(setUserInfo(result))
+        } else {
+          console.log(response)
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -162,7 +165,7 @@ export function acceptFriendRequest(body, headers) {
 }
 
 //reject friend request
-export function rejectFriendRequest(body, headers){
+export function rejectFriendRequest(body, headers) {
   return (dispatch) => {
 
     return axios.post(`${apiUrl}/friends/reject-friend-request`, body, headers)
@@ -179,14 +182,8 @@ export function rejectFriendRequest(body, headers){
   };
 }
 
-///Group actions
-export const handleCreateGroupInput = (val) => {
-  return { type: "handleCreateGroupInput", payload: { value: val } }
-}
 
-export const handleAddMember = (val) => {
-  return { type: 'addMembers', payload: val }
-}
+
 
 //create group
 export function createGroup(body, headers) {
@@ -195,16 +192,41 @@ export function createGroup(body, headers) {
 
     return axios.post(`${apiUrl}/group/create`, body, headers)
       .then(function (response) {
-        // let result = JSON.parse(JSON.stringify(response.data.results))
-        // dispatch(setMyFriends(result))
-        console.log(response)
+
+        if (response.data.status == "success") {
+          dispatch(fetchMyGroups(headers));
+        }
+        return response.data;
       })
       .catch(function (error) {
         console.log(error.response.data.errorMsg);
+        return null;
       });
 
   };
 }
+
+//add members to the group
+export function addMembersToTheGroup(body, headers) {
+
+  return (dispatch) => {
+
+    return axios.post(`${apiUrl}/group/add-member`, body, headers)
+      .then(function (response) {
+
+        if (response.data.status == "success") {
+          dispatch(fetchMyGroups(headers));
+        }
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errorMsg);
+        return null;
+      });
+
+  };
+}
+
 
 //set my group list 
 export const setMyGroups = (payload) => {
@@ -212,9 +234,9 @@ export const setMyGroups = (payload) => {
 }
 
 //fetch my group
-export function fetchMyGroups(email, headers) {
+export function fetchMyGroups(headers) {
   return (dispatch) => {
-    return axios.get(`${apiUrl}/group/?email=${email}`, headers)
+    return axios.get(`${apiUrl}/group`, headers)
       .then(function (response) {
         let result = JSON.parse(JSON.stringify(response.data.result))
         dispatch(setMyGroups(result.groups))
