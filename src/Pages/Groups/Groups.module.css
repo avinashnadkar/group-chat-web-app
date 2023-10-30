@@ -3,7 +3,7 @@ main{
 }
 
 .groupContainer, .globalChatRooms{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -57,9 +57,10 @@ box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
 
 .group{
     display: flex;
+    justify-content: space-between;
     padding: 10px 10px 20px 10px;
     margin-top: 30px;
-    width: 550px;
+    width: 100%;
     border-radius: 5px;
     border: 1px solid rgb(213, 213, 213);
     /* -webkit-box-shadow: 0px 0px 6px 0px rgba(194,194,194,1);
@@ -92,12 +93,24 @@ a{
    margin-top: 10px;
 }
 
-.groupOptions, .joinGroup{
+.groupOptions{
     background-color: transparent;
     padding: 0;
     height: fit-content;
-    position: absolute;
-    margin-left: 520px;
+    /* position: absolute; */
+    /* margin-left: 520px; */
+    margin-top:10px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+}
+
+.joinGroup{
+    background-color: transparent;
+    padding: 0;
+    height: fit-content;
+    /* position: absolute; */
+    /* margin-left: 520px; */
     margin-top:10px;
     cursor: pointer;
     font-size: 18px;
@@ -202,4 +215,16 @@ a{
 .successMsg{
     color: green;
     font-family: sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+    main{
+        flex-direction: column;
+    }
+    .groupContainer{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* justify-content: center; */
+    }
 }
