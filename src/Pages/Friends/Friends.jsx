@@ -112,11 +112,11 @@ const Friends = () => {
             <Navbar userEmail={userInfo.email} />
             <main>
                 <div className={styles.friendContainer}>
-                    <div className={styles.searchFriendContainer}>
+                    {/* <div className={styles.searchFriendContainer}>
                         <div className={styles.searchFriends}>
                             <input type="text" name='name' placeholder="Enter email.." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                             <button onClick={handleSearch}>Search friends</button>
-                        </div>
+                        </div> */}
 
                         {
                             searchResult.map((el) => {
@@ -147,7 +147,7 @@ const Friends = () => {
                                 )
                             })
                         }
-                    </div>
+                    {/* </div> */}
 
                     <div className={styles.friendCardContainer}>
 
