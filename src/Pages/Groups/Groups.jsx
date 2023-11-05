@@ -60,15 +60,6 @@ const Groups = () => {
 
     //fetch friends
     useEffect(() => {
-        dispatch(getFriends({
-            'email': userInfo.email
-        }, {
-            headers: {
-                'X-auth-token': userInfo.token,
-                'Content-Type': 'application/json'
-            }
-        }))
-
         //fetch groups
         dispatch(fetchMyGroups({
             headers: {

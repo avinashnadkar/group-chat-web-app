@@ -117,6 +117,126 @@ nav {
     height: 1px;
 }
 
+/*--- search friends container -----*/
+
+.searchFriendContainer{
+    height: inherit ;
+    width: 100%;
+    /* margin-top: 40px; */
+    border-radius: 5px;
+    overflow: scroll;
+    /* padding: 25px 0px 25px 25px; */
+}
+
+.friends{
+    padding: 25px 0px 25px 25px;
+    margin-top: 20px;
+}
+
+.searchFriends input{
+    height: 30px;
+    width: 100%;
+    background-color: rgb(243, 243, 243);
+    border :none;
+    padding: 5px 15px; 
+    border-radius: 5px;
+    outline: none;
+}
+
+.searchFriends button{
+    border: 1px solid rgb(40, 147, 151);
+    background-color: transparent;
+    color: rgb(40, 147, 151);
+    padding: 0px 10px;
+    border-radius: 5px;
+    /* border :none; */
+    height: 37px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.friend{
+    display: flex;
+    margin-top: 20px;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid rgb(213, 213, 213);
+}
+
+.friend img{
+    height: 100px;
+}
+
+.friendInformation{
+    margin-left: 10px;
+    color: gray;
+}
+
+.friendInformation p{
+    padding: 0;
+    /* margin: 5px 0px 0px 0px; */
+    font-size: 14px;
+}
+
+.friendInformation p:nth-child(1){
+   font-size: 16px;
+   font-weight:bold;
+   margin-top: 10px;
+}
+
+.friendOptions, .joinGroup{
+    background-color: transparent;
+    padding: 0;
+    height: fit-content;
+    /* position: absolute; */
+    /* margin-left: 520px; */
+    /* margin-top:10px; */
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+}
+
+.acceptButton{
+    background-color: teal;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 7px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.rejectButton{
+    background-color: rgb(213, 66, 8);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 7px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.onlineSignal{
+    height: 5px;
+    width: 5px;
+    background-color: green;
+    position: absolute;
+}
+
+.searchedFriend{
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    width: 550px;
+    padding: 0px 10px;
+    border: 1px solid rgb(213, 213, 213);
+}
+
+.searchedFriend img{
+    height: 50px;
+}
 
 @media screen and (max-width: 768px) {    
     /* nav{
@@ -166,5 +286,6 @@ nav {
         display: none;
     }
 }
+
 
 

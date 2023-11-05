@@ -21,31 +21,9 @@ const Friends = () => {
     //friends state
     const friendsState = useSelector((state) => state.friendsReducer)
 
-    //state of search friends list
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResult, setSearchResult] = useState([]);
-
     //dispatcher to dispatch action to reducers
     const dispatch = useDispatch()
 
-    //search friend
-    const handleSearch = () => {
-
-        const body = { 'email': searchQuery }
-
-        axios.post(`${apiUrl}/friends/search`, body, {
-            headers: {
-                'X-auth-token': userInfo.token,
-                'Content-Type': 'application/json'
-            }
-        }).then(function (response) {
-            let result = JSON.parse(JSON.stringify(response.data.results))
-            setSearchResult(result.users);
-        }).catch(function (error) {
-            console.log(error.response.data.errorMsg);
-        });
-
-    }
 
     //accept friend reauest 
     const acceptFriendRequestHandler = (friendsId) => {
@@ -95,59 +73,23 @@ const Friends = () => {
         }))
     }
 
-    //fetch friends
-    useEffect(() => {
-        dispatch(getFriends({
-            'email': userInfo.email
-        }, {
-            headers: {
-                'X-auth-token': userInfo.token,
-                'Content-Type': 'application/json'
-            }
-        }))
-    }, [userInfo, dispatch])
+    // //fetch friends
+    // useEffect(() => {
+    //     dispatch(getFriends({
+    //         'email': userInfo.email
+    //     }, {
+    //         headers: {
+    //             'X-auth-token': userInfo.token,
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }))
+    // }, [userInfo, dispatch])
 
     return (
         <>
             <Navbar userEmail={userInfo.email} />
             <main>
                 <div className={styles.friendContainer}>
-                    {/* <div className={styles.searchFriendContainer}>
-                        <div className={styles.searchFriends}>
-                            <input type="text" name='name' placeholder="Enter email.." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-                            <button onClick={handleSearch}>Search friends</button>
-                        </div> */}
-
-                        {
-                            searchResult.map((el) => {
-                                return (
-                                    <div className={styles.friend} key={uuid()}>
-                                        {/* <img src={el.profilePicture}/> */}
-                                        <div className={styles.friendInformation}>
-                                            <p>{el.email}</p>
-                                        </div>
-                                        {friendsState.myFriends.some((myFriend) => myFriend._id === el._id) ? (
-                                            <button className={styles.friendOptions}><MoreVertIcon /></button>
-                                        ) : friendsState.friendRequests.some(friendRequest => friendRequest._id === el._id) ? (
-                                            <div>
-                                                <button className={styles.acceptButton} onClick={() => acceptFriendRequestHandler(el._id)}> Accept </button>
-                                                <button className={styles.rejectButton} key={el._id} onClick={() => rejectFriendRequestHandler(el._id)}>Reject</button>
-                                            </div>
-                                        ) : friendsState.friendRequestsSent.some(friendRequestSent => friendRequestSent._id === el._id) ? (
-                                            <div>
-                                                <button className={styles.rejectButton} key={el._id} onClick={() => cancelFriendRequestHandler(el._id)}>Cancel</button>
-                                            </div>
-                                        ) : (
-                                            <button className={styles.friendOptions} onClick={() => sendFriendRequestHandler(el._id)}>
-                                                <GroupAddIcon />
-                                            </button>
-                                        )}
-                                    </div>
-
-                                )
-                            })
-                        }
-                    {/* </div> */}
 
                     <div className={styles.friendCardContainer}>
 
