@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styles from './DashboardComponents.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../Redux/actions";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import Box from '@mui/material/Box';
@@ -19,8 +19,33 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import Modal from '@mui/material/Modal';
+import axios from "axios";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { v4 as uuid } from 'uuid';
+import { getFriends, sendFriendRequest, cancelFriendRequest, acceptFriendRequest, rejectFriendRequest } from "../../../Redux/actions";
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    height: 400,
+    // overflow:'scroll',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
+/*info : 
+  followng urls value saved in .env file.
+  Add REACT_APP_API_URL = <http://your-url> 
+*/
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Navbar = (props) => {
 
@@ -33,11 +58,19 @@ const Navbar = (props) => {
         setAnchorEl(null);
     };
 
+    //state for toggling modal
+    const [openModel, setOpenModel] = useState(false);
+    const handleOpenModel = () => setOpenModel(true);
+    const handleCloseModel = () => {
+        setOpenModel(false);
+        setSearchQuery("");
+        setSearchResult([]);
+    };
+
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
     //dispatcher to dispath actions
     const dispatch = useDispatch()
-
 
     //toggle navbar
     const toggleNavbar = () => {
@@ -54,6 +87,100 @@ const Navbar = (props) => {
         dispatch(logoutUser());
     }
 
+    //state
+    const userInfo = useSelector((state) => state.userInfoReducer)
+
+    //friends state
+    const friendsState = useSelector((state) => state.friendsReducer)
+    //state of search friends list
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResult, setSearchResult] = useState([]);
+
+    //search friend
+    const handleSearch = (query) => {
+
+        setSearchQuery(query);
+
+        if (query.trim() != "") {
+
+            const body = { 'email': query.trim() }
+
+            axios.post(`${apiUrl}/friends/search`, body, {
+                headers: {
+                    'X-auth-token': userInfo.token,
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                let result = JSON.parse(JSON.stringify(response.data.results))
+                setSearchResult(result.users);
+            }).catch(function (error) {
+                console.log(error.response.data.errorMsg);
+            });
+        }else{
+            setSearchResult([]);
+        }
+
+    }
+
+    //accept friend reauest 
+    const acceptFriendRequestHandler = (friendsId) => {
+        dispatch(acceptFriendRequest({
+            "id": friendsId
+        }, {
+            headers: {
+                'X-auth-token': userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+    }
+
+    //reject friend reauest 
+    const rejectFriendRequestHandler = (friendsId) => {
+        dispatch(rejectFriendRequest({
+            "id": friendsId
+        }, {
+            headers: {
+                'X-auth-token': userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+    }
+
+    //send friend reauest 
+    const sendFriendRequestHandler = (friendsId) => {
+        dispatch(sendFriendRequest({
+            "id": friendsId
+        }, {
+            headers: {
+                'X-auth-token': userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+    }
+
+    //cancel friend reauest 
+    const cancelFriendRequestHandler = (friendsId) => {
+        dispatch(cancelFriendRequest({
+            "id": friendsId
+        }, {
+            headers: {
+                'X-auth-token': userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+    }
+
+    //fetch friends
+    useEffect(() => {
+        dispatch(getFriends({
+            'email': userInfo.email
+        }, {
+            headers: {
+                'X-auth-token': userInfo.token,
+                'Content-Type': 'application/json'
+            }
+        }))
+    }, [userInfo, dispatch])
 
     return (
         <nav>
@@ -74,7 +201,7 @@ const Navbar = (props) => {
             </div>
 
             <ul className={`${styles.navlinks} ${isNavbarOpen ? styles.show : ''}`}>
-                <li className={styles.searchManuLink}><Link to="/groups">Search</Link></li>
+                <li onClick={handleOpenModel} className={styles.searchManuLink}><Link to="/groups">Search</Link></li>
                 <li><Link to="/groups">Groups</Link></li>
                 <li><Link to="/friends">Friends</Link></li>
             </ul>
@@ -82,7 +209,7 @@ const Navbar = (props) => {
 
             <React.Fragment>
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                    <Typography sx={{ minWidth: 100 }} className={styles.searchBarButtonContainer} >
+                    <Typography onClick={handleOpenModel} sx={{ minWidth: 100 }} className={styles.searchBarButtonContainer} >
                         <SearchIcon style={{ marginRight: '5px' }} />
                         <span>Search</span>
                     </Typography>
@@ -163,6 +290,54 @@ const Navbar = (props) => {
                 </Menu>
             </React.Fragment>
 
+            <Modal
+                open={openModel}
+                onClose={handleCloseModel}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    {/* <h2> Search Friends </h2> */}
+
+                    <div className={styles.searchFriendContainer}>
+                        <div className={styles.searchFriends}>
+                            <input type="text" name='name' placeholder="Enter email to search friend.." value={searchQuery} onChange={(e) => handleSearch(e.target.value)} />
+                            {/* <button onClick={handleSearch}>Search friends</button> */}
+                        </div>
+
+                        {
+                            searchResult.map((el) => {
+                                return (
+                                    <div className={styles.friend} key={uuid()}>
+                                        {/* <img src={el.profilePicture}/> */}
+                                        <div className={styles.friendInformation}>
+                                            <p>{el.email}</p>
+                                        </div>
+                                        {friendsState.myFriends.some((myFriend) => myFriend._id === el._id) ? (
+                                            <button className={styles.friendOptions}><MoreVertIcon /></button>
+                                        ) : friendsState.friendRequests.some(friendRequest => friendRequest._id === el._id) ? (
+                                            <div>
+                                                <button className={styles.acceptButton} onClick={() => acceptFriendRequestHandler(el._id)}> Accept </button>
+                                                <button className={styles.rejectButton} key={el._id} onClick={() => rejectFriendRequestHandler(el._id)}>Reject</button>
+                                            </div>
+                                        ) : friendsState.friendRequestsSent.some(friendRequestSent => friendRequestSent._id === el._id) ? (
+                                            <div>
+                                                <button className={styles.rejectButton} key={el._id} onClick={() => cancelFriendRequestHandler(el._id)}>Cancel</button>
+                                            </div>
+                                        ) : (
+                                            <button className={styles.friendOptions} onClick={() => sendFriendRequestHandler(el._id)}>
+                                                <GroupAddIcon />
+                                            </button>
+                                        )}
+                                    </div>
+
+                                )
+                            })
+                        }
+                    </div>
+
+                </Box>
+            </Modal>
         </nav>
     )
 }
