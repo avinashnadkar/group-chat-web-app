@@ -17,6 +17,14 @@ export function setUserInfo(payload) {
   return { type: "setUserInfo", payload }
 }
 
+export function setLoginError(payload) {
+  return { type: 'SET_LOGIN_ERROR',payload: payload};
+}
+
+export function clearLoginError() {
+  return { type: 'CLEAR_LOGIN_ERROR'};
+}
+
 //signup user network request
 export function signup(body) {
 
@@ -25,7 +33,7 @@ export function signup(body) {
     return axios.post(`${apiUrl}/user/signup`, body)
       .then(function (response) {
         dispatch(isUserLoggedIn(true))
-        console.log(response.data.results)
+        // console.log(response.data.results)
         let result = JSON.parse(JSON.stringify(response.data.results))
         dispatch(setUserInfo(result))
       })
@@ -48,7 +56,9 @@ export function login(body) {
           let result = JSON.parse(JSON.stringify(response.data.results))
           dispatch(setUserInfo(result))
         } else {
-          console.log(response)
+           let error = { emailErrorMsg: "", passwordErrorMsg: response.data.message  }
+          dispatch(setLoginError(error));
+          // console.log(response)
         }
       })
       .catch(function (error) {
@@ -63,6 +73,7 @@ export function login(body) {
 export function logoutUser() {
   return (dispatch) => {
     localStorage.removeItem('userData');
+    dispatch(clearLoginError());
     dispatch(isUserLoggedIn(false))
   }
 }
@@ -98,7 +109,7 @@ export function getFriends(body, headers) {
 
     return axios.get(`${apiUrl}/friends`, headers)
       .then(function (response) {
-        console.log(response)
+        // console.log(response)
         let result = JSON.parse(JSON.stringify(response.data.results))
         dispatch(setMyFriends(result.friends))
         dispatch(setFriendRequests(result.friendRequests))
