@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/actions";
 
 const Login = () => {
+    
 
     //state
     const userInfo = useSelector((state) => state.userInfoReducer)
+    const validationErrorsMsg = useSelector(state => state.authReducer.validationErrorsMsg);
     const [userCredentials, setUesrCredentials] = useState({ email: "", password: "" });
-    const tempErrorMsg = { emailErrorMsg: "", passwordErrorMsg: "" };
-    const [validationErrorsMsg, setValidationErrorMsg] = useState(tempErrorMsg);
     const isAuth = userInfo.isUserLoggedIn;
 
     //Redirect to previous page if user is already logged in
@@ -29,20 +29,20 @@ const Login = () => {
     const loginUser = () => {
 
         //alert user if email is not valid
-        const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        /*const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         if (!emailPattern.test(userCredentials.email)) {
             setValidationErrorMsg({ ...tempErrorMsg, emailErrorMsg: "Invalid email format" });
             return;
-        }
+        }*/
 
         //alert user if password length is less than 6 chars
-        if (userCredentials.password.length < 6) {
+        /*if (userCredentials.password.length < 6) {
             setValidationErrorMsg({
                 emailErrorMsg: "",
-                passwordErrorMsg: "Passwords should be atlest 6 characters long"
+                passwordErrorMsg: "Passwords should be at least 6 characters long"
             });
             return;
-        }
+        }*/
 
         dispatch(login({
             email: userCredentials.email,
