@@ -30,7 +30,7 @@ const userInfoReducer = (state = userInfo, action) => {
     }
 
     if (action.type === "setUserInfo") {
-        console.log(action.payload)
+        // console.log(action.payload)
         localStorage.setItem("userData", JSON.stringify(action.payload))
         return {
             ...state,

@@ -4,7 +4,8 @@ import axios from 'axios';
   followng urls value saved in .env file.
   Add REACT_APP_API_URL = <http://your-url> 
 */
-const apiUrl = process.env.REACT_APP_API_URL;
+let apiUrl = process.env.REACT_APP_API_URL;
+console.log(apiUrl)
 
 
 //Is User logged in

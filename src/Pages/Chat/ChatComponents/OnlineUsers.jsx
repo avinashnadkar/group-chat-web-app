@@ -20,11 +20,11 @@ const OnlineUsers = (props) => {
             {
                 props.chatGroup.map((el)=>{
                     return(
-                        <div className={styles.user} key={uuid()}>
+                        <div className={styles.user} key={uuid()} onClick={() => props.onGroupClick(el)}>
                             <img src={"https://via.placeholder.com/300"} alt="" className={styles.chatProfilePic}/>
                             <div className={styles.userName}>
-                                <p>{el.email}</p>
-                                <p>{el.lastMessage}</p>
+                                <p>{el.name}</p>
+                                <p>{el.members.length}</p>
                             </div>
                             <div className={styles.msgCount}>
 
