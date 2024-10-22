@@ -204,6 +204,7 @@ const Navbar = (props) => {
                 <li onClick={handleOpenModel} className={styles.searchManuLink}><Link to="/groups">Search</Link></li>
                 <li><Link to="/groups">Groups</Link></li>
                 <li><Link to="/friends">Friends</Link></li>
+                <li><Link to="/chat">Chat</Link></li>
             </ul>
 
 

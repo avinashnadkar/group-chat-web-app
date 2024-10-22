@@ -68,8 +68,8 @@ const ChatWindow = (props) => {
 
            <div className={styles.chats}>
               {
-                dummyChats.map((chat)=>{
-                  if(chat.senderName === 'admin'){
+                props.messages.map((chat)=>{
+                  if(chat.user_id === props.u_id){
                     return <SendMsg content={chat.msg} key={uuid()}/>
                   }else{
                     return <ReceivedMsg content={chat.msg} key={uuid()}/>
